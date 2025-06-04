@@ -20,12 +20,13 @@
         }
         .love-monitor {
             background: #fff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
             text-align: center;
-            max-width: 90%;
-            width: 320px;
+            max-width: 95%;
+            width: 360px;
+            min-height: 400px;
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -35,9 +36,21 @@
             height: 90px;
             background: #ff4d4d;
             position: relative;
-            margin: 20px auto;
+            margin: 40px auto 30px;
             transform: rotate(-45deg);
             animation: pulse 1.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .heart:hover {
+            background: #e63939;
+        }
+        .heart:hover::before,
+        .heart:hover::after {
+            background: #e63939;
+        }
+        .heart:active {
+            transform: rotate(-45deg) scale(0.95);
         }
         .heart::before,
         .heart::after {
@@ -117,7 +130,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* Mind-blowing effect: Heart and sparkle burst */
         .burst-container {
             position: fixed;
             top: 0;
@@ -173,12 +185,14 @@
         }
         @media (max-width: 600px) {
             .love-monitor {
-                width: 85%;
-                padding: 15px;
+                width: 90%;
+                padding: 20px;
+                min-height: 360px;
             }
             .heart {
                 width: 70px;
                 height: 70px;
+                margin: 30px auto 20px;
             }
             .heart::before,
             .heart::after {
@@ -230,7 +244,7 @@
 <body>
     <div class="love-monitor">
         <h2>Love Monitor 💖</h2>
-        <div class="heart">
+        <div class="heart" onclick="showLove()">
             <div class="sparkle"></div>
             <div class="sparkle"></div>
             <div class="sparkle"></div>
@@ -265,7 +279,7 @@
                     result.textContent = '';
                     pickupLine.textContent = '';
                 }, 500);
-            }, 4000);
+            }, 7000); // Extended to 7 seconds
         }
 
         function triggerBurst() {
@@ -278,7 +292,6 @@
                 const element = document.createElement('div');
                 const isHeart = Math.random() > 0.5; // Randomly choose heart or sparkle
                 element.className = isHeart ? 'burst-heart' : 'burst-sparkle';
-                // Random angle and distance for burst effect
                 const angle = Math.random() * 2 * Math.PI;
                 const distance = 100 + Math.random() * 200; // Spread 100-300px
                 const tx = Math.cos(angle) * distance;
@@ -290,7 +303,6 @@
                 element.style.animationDelay = `${Math.random() * 0.5}s`; // Staggered start
                 burstContainer.appendChild(element);
             }
-            // Clean up after animation
             setTimeout(() => {
                 burstContainer.innerHTML = '';
             }, 1500);
